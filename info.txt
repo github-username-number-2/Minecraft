@@ -1,0 +1,21 @@
+Global vars:
+  THREE
+    threejs library
+
+  canvas
+    main canvas element
+
+  body
+    document body
+
+  query
+    short for document.querySelector
+
+  queryAll
+    shortfor document.querySelectorAll
+  
+  PlayerData
+    data about player
+  
+  BlockTextures
+    loaded block textures
