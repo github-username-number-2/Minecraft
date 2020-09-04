@@ -2,11 +2,17 @@ import BlockData from "/js/data/BlockData.js";
 import WorldData from "/js/data/WorldData.js";
 
 
-const blockSize = BlockData.size, blocks = BlockData.blocks;
+const blockSize = BlockData.size,
+  blocks = BlockData.blocks;
 
-const chunkWidth = WorldData.size.chunks.width, chunkDepth = WorldData.size.chunks.depth;
+const chunkWidth = WorldData.size.chunks.width,
+  chunkHeight = WorldData.size.chunks.height,
+  chunkDepth = WorldData.size.chunks.depth;
 
 const worldSize = WorldData.size;
+
+const airName = WorldData.air,
+  airCollisionType = WorldData.airCollisionType;
 
 const PlaneGeometry = new THREE.PlaneGeometry(
   blockSize,
@@ -16,23 +22,32 @@ const PlaneGeometry = new THREE.PlaneGeometry(
 
 export default class Block {
   constructor(x, y, z, chunk, name, world) {
-    this.getSurroundingBlocks(chunk, x, y, z, world)
-
-
     const blockInfo = blocks[name];
     const texture = BlockTextures[blockInfo.location];
     const map = blockInfo.dimensions;
 
-    this.worldX = x;
-    this.worldY = y;
-    this.worldZ = z;
 
-    //this.chunkX = ;
-    //this.chunkY = ;
-    //this.chunkZ = ;
+    //chunk location
+    //important
+    this.chunkX = chunk % worldSize.width;
+    this.chunkY = chunk % (worldSize.width * worldSize.depth);
+    this.chunkZ = Math.floor(chunk / worldSize.width);
 
-    this.chunkLocX = chunk % worldSize.width * chunkWidth * blockSize;
-    this.chunkLocZ = Math.floor(chunk / worldSize.depth) * chunkWidth * blockSize;
+    //original chunk number
+    this.chunk = chunk;;
+
+    //world location
+    this.worldX = x + chunkWidth * this.chunkX;
+    this.worldY = y + chunkHeight * this.chunkY;
+    this.worldZ = z + chunkDepth * this.chunkZ;
+
+    //location within chunk
+    this.localX = x;
+    this.localY = y;
+    this.localZ = z;
+
+
+    this.mechanics = blockInfo.mechanics;
 
     this.name = name;
 
@@ -77,9 +92,9 @@ export default class Block {
           index = -1;
         }
         plane.position.set(
-          index * offsetX + x * blockSize + this.chunkLocX,
-          index * offsetY + y * blockSize,
-          index * offsetZ + z * blockSize + this.chunkLocZ
+          index * offsetX + x * blockSize + this.chunkX * chunkWidth * blockSize,
+          index * offsetY + y * blockSize + this.chunkX * chunkHeight * blockSize,
+          index * offsetZ + z * blockSize + this.chunkZ * chunkDepth * blockSize
         );
 
         plane.name = `block:${x},${y},${z}`;
@@ -93,7 +108,30 @@ export default class Block {
     //
   }
 
-  getSurroundingBlocks(world) {
-    //console.log(this.chunk, this.x, this.y, this.z, world)
+  remove() {
+    while (this.planes.length) {
+      scene.remove(this.planes[0]);
+      this.planes.pop();
+    }
+
+    LoadedWorld[this.chunk][this.localY][this.chunkX][this.localZ] = airName;
+    LoadedBlockTypes[this.chunk][this.localY][this.localX][this.localZ] = airType;
   }
+
+  getSurroundingBlocks(world) {
+    return {
+      top: 0,
+      bottom: 0,
+      front: 0,
+      back: 0,
+      left: 0,
+      right: 0,
+    };
+  }
+}
+
+export function getBlockType(name) {
+  return name === airName
+    ? airCollisionType
+    : blocks[name].mechanics.collisionType;
 }

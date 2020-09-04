@@ -21,6 +21,10 @@ export default {
           ["blockname:side", "blockname:side"],
           ["blockname:side", "blockname:side"],
         ],
+
+        mechanics: {
+          type: solid, liquid or transparent
+        },
       }
     */
 
@@ -33,6 +37,10 @@ export default {
         ["side", "side"],
         ["side", "side"],
       ],
+
+      mechanics: {
+        type: "solid",
+      },
     },
     stone: {
       blocksPerPlane: 1,
@@ -43,6 +51,10 @@ export default {
         ["side", "side"],
         ["side", "side"],
       ],
+
+      mechanics: {
+        collisionType: "solid",
+      },
     },
   },
 };

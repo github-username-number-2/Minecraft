@@ -1,13 +1,17 @@
 export default {
+  air: 0,
+  airCollisionType: "transparent",
+
   size: {
     //measured in chunks
     width: 3,
-    depth: 3,
+    height: 1,
+    depth: 2,
 
     chunks: {
       //measured in blocks
-      width: 16,
-      depth: 16,
+      width: 6,
+      depth: 6,
     },
   }
 };

@@ -2,6 +2,9 @@ Global vars:
   THREE
     threejs library
 
+  Lodash
+    lodash library
+
   canvas
     main canvas element
 
@@ -19,3 +22,9 @@ Global vars:
   
   BlockTextures
     loaded block textures
+
+  LoadedWorld
+    array containing loaded block objects
+
+  LoadedBlockTypes
+    array containing type of block at each location

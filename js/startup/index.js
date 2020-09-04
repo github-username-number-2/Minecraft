@@ -38,12 +38,12 @@ JS.loop(() => {
   world.push([
     [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"]],
     [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
-    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
-    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
+    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, "stone", 0, 0, 0], [0, 0, 0, "stone", 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
+    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, "stone", 0, 0, 0, 0], [0, 0, 0, "stone", 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
     [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
     [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
   ]);
-}, 9);
+}, 6);
 
 
 loadTextures().then(loadedTextures => {

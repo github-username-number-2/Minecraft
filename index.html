@@ -4,10 +4,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
+
 	<title>Minecraft</title>
+
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="images/favicon.png" rel="icon" />
 
 	<script src="js/libraries/simplify.js?JS">
+
+	</script>
+	<script src="js/libraries/lodash.js">
 
 	</script>
 </head>
@@ -16,16 +22,21 @@
 	<canvas id="canvas" width="1000" height="600"></canvas>
 
 	<script type="module">
-    import * as THREE from "/js/libraries/three.module.js";
-
+		import * as THREE from "/js/libraries/three.module.js";
+    
     window.THREE = THREE;
 
-		window.query = q => document.querySelector(q);
-    window.queryAll = q => document.querySelectorAll(q);
+    //replaces lodash library name
+    window.Lodash = _;
+    delete window._;
+    
+    window.query = q => document.querySelector(q);
+		window.queryAll = q => document.querySelectorAll(q);
+    
     window.body = document.body;
-
+    
     window.canvas = query("#canvas");
-
+    
     addEventListener("error", e => {
       alert(e.message, e.lineno);
     });
