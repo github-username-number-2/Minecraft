@@ -17,6 +17,8 @@ function checkKeyDown(keys) {
 export default function updateWASD() {
   const Vec3 = new THREE.Vector3();
 
+  let temp = 0;
+
   if (checkKeyDown(forward)) {
     Vec3.z += 1;
   }
@@ -29,9 +31,20 @@ export default function updateWASD() {
   if (checkKeyDown(right)) {
     Vec3.x -= 1;
   }
+  //temp
+  if (ActiveKeys["KeyQ"]) {
+    temp += 1;
+  }
+  if (ActiveKeys["KeyE"]) {
+    temp -= 1;
+  }
+  //temp
 
   Vec3.normalize();
 
   controls.moveForward(Vec3.z * speed);
   controls.moveRight(-Vec3.x * speed);
+  //temp
+  camera.position.y += temp * speed;
+  //temp
 }

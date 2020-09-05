@@ -10,7 +10,7 @@ export default async function loadTextures() {
       const image = await loadImage(textures[block][side]);
       const texture = new THREE.CanvasTexture(image);
       
-      Textures[block][side] = new THREE.MeshBasicMaterial({
+      Textures[block][side] = new THREE.MeshLambertMaterial({
         map: image
       });
     }

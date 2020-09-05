@@ -27,7 +27,10 @@ window.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 window.scene = new THREE.Scene();
 scene.background = new THREE.Color(0x81ceeb);
 
-window.renderer = new THREE.WebGLRenderer({canvas});
+window.renderer = new THREE.WebGLRenderer({
+  canvas,
+  powerPreference: "high-performance",
+});
 
 window.controls = new PointerLockControls(camera, body);
 controls.lookSpeed = PlayerData.movement.lookSpeed / 100000;
@@ -37,11 +40,11 @@ window.world = [];
 JS.loop(() => {
   world.push([
     [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"]],
-    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
-    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, "stone", 0, 0, 0], [0, 0, 0, "stone", 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
-    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, "stone", 0, 0, 0, 0], [0, 0, 0, "stone", 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
-    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
-    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
+    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"]],
+    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["air", "air", "stone", "air", "air", "air"], ["air", "air", "air", "stone", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"]],
+    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["air", "air", "air", "air", "air", "air"], ["air", "stone", "air", "air", "air", "air"], ["air", "air", "air", "stone", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"]],
+    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"]],
+    [["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["dirt", "dirt", "dirt", "dirt", "dirt", "dirt"], ["air", "air", "air", "air", "air", "air"], ["air", "air", "air", "air", "air", "air"]],
   ]);
 }, 6);
 
@@ -51,21 +54,23 @@ loadTextures().then(loadedTextures => {
   loadWorld(world);
 
   renderer.render(scene, camera);
+
+  console.log("Started successfully");
 });
 //temp
 
 
 body.addEventListener("click", () => controls.lock());
 
-controls.addEventListener("lock", () => AM.start());
-controls.addEventListener("unlock", () => AM.stop());
+//controls.addEventListener("lock", () => AM.start());
+//controls.addEventListener("unlock", () => AM.stop());
 
 scene.add(controls.getObject());
 
 camera.position.y = 2
 
 const color = 0xFFFFFF;
-const intensity = 5;
+const intensity = 0.5;
 let light = new THREE.DirectionalLight(color, intensity);
 light.position.set(-1, 2, 4);
 scene.add(light);
@@ -74,10 +79,13 @@ light.position.set(1, -2, 10);
 scene.add(light);
 //temp
 
-const AM = new AnimationManager();
+window.AM = new AnimationManager();
 AM.functions.push(async () => renderer.render(scene, camera));
 AM.functions.push(updateWASD);
+AM.start();
 
 document.addEventListener("visibilitychange", () => {
   document.hidden ? AM.stop() : AM.start();
 });
+
+console.log("Done");

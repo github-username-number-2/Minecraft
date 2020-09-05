@@ -4,16 +4,16 @@ export default {
   blocks: {
     /*
       {
-        blocksPerPlane: number of blocks per side
+        blocksPerPlane: number of blocks per side,
 
-        location: default texture location
+        location: default texture location,
         [top, bottom],
         [xAxisLeft, xAxisRight],
         [zAxisLeft, zAxisRight],
       }
 
       {
-        blocksPerPlane: number of blocks per side
+        blocksPerPlane: number of blocks per side,
 
         location: null,
         dimensions: [
@@ -23,13 +23,26 @@ export default {
         ],
 
         mechanics: {
-          type: solid, liquid or transparent
+          type: solid, liquid or transparent,
+
+          planeLoadType: blocked if unnecessary planes should not be loaded else set to full,
+          planeBlockType: block if this will block other block's planes from loading else set to allow,
         },
       }
     */
 
+    air: {
+      renderBlock: false,
+
+      mechanics: {
+        collisionType: "transparent",
+
+        planeBlockType: "allow",
+      },
+    },
+
     dirt: {
-      blocksPerPlane: 1,
+      renderBlock: true,
 
       location: "dirt",
       dimensions: [
@@ -39,11 +52,14 @@ export default {
       ],
 
       mechanics: {
-        type: "solid",
+        collisionType: "solid",
+
+        planeLoadType: "blocked",
+        planeBlockType: "block",
       },
     },
     stone: {
-      blocksPerPlane: 1,
+      renderBlock: true,
 
       location: "stone",
       dimensions: [
@@ -54,6 +70,9 @@ export default {
 
       mechanics: {
         collisionType: "solid",
+
+        planeLoadType: "blocked",
+        planeBlockType: "block",
       },
     },
   },
