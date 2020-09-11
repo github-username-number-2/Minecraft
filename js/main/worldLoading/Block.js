@@ -2,7 +2,6 @@ import BlockData from "/js/data/BlockData.js";
 import WorldData from "/js/data/WorldData.js";
 import World from "/js/main/Globals/World.js";
 
-window.World = World;
 
 const blockSize = BlockData.size;
 
@@ -12,23 +11,23 @@ const chunkWidth = WorldData.size.chunks.width,
 
 const worldSize = WorldData.size;
 
-const airName = WorldData.airName;
-const airCollisionType = World.getBlockCollisionType(airName);
-
-const PlaneGeometry = new THREE.PlaneBufferGeometry(
+const PlaneGeometry = new THREE.PlaneGeometry(
   blockSize,
   blockSize,
   blockSize
 );
 
-export default class Block {
-  constructor(x, y, z, chunk, name, world) {
+const boundingPlaneBlockingType = WorldData.boundingPlaneBlockingType;
+
+class Block {
+  constructor(x, y, z, chunk, chunkNumber, name) {
     const blockInfo = World.getBlockInfo(name);
     const texture = BlockTextures[blockInfo.location];
     const map = blockInfo.dimensions;
 
     this.blockInfo = blockInfo;
 
+    //will not be used if renderBlock is set to false
     this.renderInfo = {
       texture,
       map,
@@ -36,12 +35,14 @@ export default class Block {
 
     //chunk location
     //important
-    this.chunkX = chunk % worldSize.width;
-    this.chunkY = Math.floor(chunk / (worldSize.width * worldSize.depth));
-    this.chunkZ = Math.floor(chunk / worldSize.width) - this.chunkY * worldSize.depth;
+    this.chunkX = chunkNumber % worldSize.width;
+    this.chunkY = Math.floor(chunkNumber / (worldSize.width * worldSize.depth));
+    this.chunkZ = Math.floor(chunkNumber / worldSize.width) - this.chunkY * worldSize.depth;
 
     //original chunk number
-    this.chunk = chunk;
+    this.chunkNumber = chunkNumber;
+
+    this.parentChunk = chunk;
 
     //world location
     this.worldX = x + chunkWidth * this.chunkX;
@@ -56,24 +57,18 @@ export default class Block {
 
     this.mechanics = blockInfo.mechanics;
 
-    this.name = name;
-
-    this.block = name;
-
-    this.planes = [];
+    this.blockName = name;
   }
 
-  remove() {
-    while (this.planes.length) {
-      scene.remove(this.planes[0]);
-      this.planes.shift();
-    }
+  replace(newBlockName) {
+    World.setBlock(this.worldX, this.worldY, this.worldZ, newBlockName);
 
-    LoadedWorld[this.chunk][this.localY][this.localX][this.localZ] = airName;
-    LoadedBlockTypes[this.chunk][this.localY][this.localX][this.localZ] = airCollisionType;
+    this.parentChunk.update();
+
+    this.getSurroundingChunks().forEach(chunk => chunk && chunk.update());
   }
 
-  getSurroundingBlocks(world) {
+  getSurroundingBlocks() {
     return [
       [
         World.getBlockByWorldCoords(this.worldX, this.worldY + 1, this.worldZ),
@@ -90,10 +85,22 @@ export default class Block {
     ];
   }
 
-  updatePlanes() {
-    while (this.planes.length) {
-      scene.remove(this.planes[0]);
-      this.planes.shift();
+  getSurroundingChunks() {
+    return [
+      World.getChunkByWorldCoords(this.worldX, this.worldY + 1, this.worldZ),
+      World.getChunkByWorldCoords(this.worldX, this.worldY - 1, this.worldZ),
+
+      World.getChunkByWorldCoords(this.worldX + 1, this.worldY, this.worldZ),
+      World.getChunkByWorldCoords(this.worldX - 1, this.worldY, this.worldZ),
+      
+      World.getChunkByWorldCoords(this.worldX, this.worldY, this.worldZ + 1),
+      World.getChunkByWorldCoords(this.worldX, this.worldY, this.worldZ - 1),
+    ];
+  }
+
+  listPlanes() {
+    if (!this.blockInfo.renderBlock) {
+      return;
     }
 
     const surroundingBlocks = this.getSurroundingBlocks();
@@ -101,12 +108,14 @@ export default class Block {
 
     for (let i = 0; i < 3; i++) {
       this.renderInfo.map[i].forEach((side, index) => {
-        if (
-          surroundingBlocks[i][index]
-          && World.getPlaneBlockingType(
-            surroundingBlocks[i][index].name
-          ) === "block"
-          && this.blockInfo.mechanics.planeLoadType === "blocked"
+        
+        //checks if block is of plane blocking type
+        if (!surroundingBlocks[i][index]) {
+          if (boundingPlaneBlockingType === "block") {
+            return;
+          }
+        } else if (
+          World.getPlaneBlockingType(surroundingBlocks[i][index].blockName) === "block"
         ) {
           return;
         }
@@ -118,9 +127,7 @@ export default class Block {
           : BlockTextures[textureData[0]][textureData[1]];
 
 
-        const plane = new THREE.Mesh(PlaneGeometry, material);
-       
-        this.planes.push(plane);
+        const plane = new THREE.Mesh(PlaneGeometry);
 
         const half = blockSize / 2;
 
@@ -145,15 +152,18 @@ export default class Block {
           index = -1;
         }
         plane.position.set(
-          index * offsetX + this.localX * blockSize + this.chunkX * chunkWidth * blockSize,
-          index * offsetY + this.localY * blockSize + this.chunkY * chunkHeight * blockSize,
-          index * offsetZ + this.localZ * blockSize + this.chunkZ * chunkDepth * blockSize
+          index * offsetX + this.localX * blockSize + this.chunkX * chunkWidth * blockSize + half,
+          index * offsetY + this.localY * blockSize + this.chunkY * chunkHeight * blockSize + half,
+          index * offsetZ + this.localZ * blockSize + this.chunkZ * chunkDepth * blockSize + half,
         );
 
-        plane.name = `block:${this.localX},${this.localY},${this.localZ}`;
+        plane.updateMatrix();
 
-        scene.add(plane);
+        this.parentChunk.renderList.blocks.push([plane.geometry, plane.matrix]);
+        this.parentChunk.textureList.blocks.push(material);
       });
     }
   }
 }
+
+export default Block;

@@ -2,20 +2,20 @@ export default {
   airName: "air",
 
   boundingCollisionType: "solid",
-  boundingPlaneBlockingType: "block",
+  boundingPlaneBlockingType: "allow",
 
   size: {
     //measured in chunks
     //should multiply to get total chunks
-    width: 2,
+    width: 3,
     height: 1,
     depth: 3,
 
     chunks: {
       //measured in blocks
-      width: 6,
-      height: 6,
-      depth: 6,
+      width: 3,
+      height: 8,
+      depth: 3,
     },
   }
 };

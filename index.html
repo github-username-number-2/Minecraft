@@ -10,9 +10,6 @@
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
 	<link href="images/favicon.png" rel="icon" />
 
-	<script src="js/libraries/simplify.js?JS">
-
-	</script>
 	<script src="js/libraries/lodash.js">
 
 	</script>
@@ -23,8 +20,10 @@
 
 	<script type="module">
 		import * as THREE from "/js/libraries/three.module.js";
+    import System from "/js/data/SystemData.js";
     
     window.THREE = THREE;
+    window.System = System;
 
     //replaces lodash library name
     window.Lodash = _;
@@ -42,7 +41,7 @@
     });
 	</script>
 
-	<script src="js/startup/index.js" type="module">
+	<script src="js/startup/initialize.js" type="module">
 
 	</script>
 </body>

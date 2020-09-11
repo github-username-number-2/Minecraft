@@ -27,6 +27,8 @@ export default {
 
           planeLoadType: blocked if unnecessary planes should not be loaded else set to full,
           planeBlockType: block if this will block other block's planes from loading else set to allow,
+
+          playerCrosshairBlocking: true if this block will block the player's aim else set to false
         },
       }
     */
@@ -34,10 +36,16 @@ export default {
     air: {
       renderBlock: false,
 
+      location: null,
+      dimensions: null,
+
       mechanics: {
         collisionType: "transparent",
 
         planeBlockType: "allow",
+        planeLoadType: null,
+
+        playerCrosshairBlocking: false,
       },
     },
 
@@ -56,8 +64,11 @@ export default {
 
         planeLoadType: "blocked",
         planeBlockType: "block",
+
+        playerCrosshairBlocking: true,
       },
     },
+
     stone: {
       renderBlock: true,
 
@@ -73,6 +84,28 @@ export default {
 
         planeLoadType: "blocked",
         planeBlockType: "block",
+
+        playerCrosshairBlocking: true,
+      },
+    },
+
+    oakWood: {
+      renderBlock: true,
+
+      location: "oakWood",
+      dimensions: [
+        ["top", "top"],
+        ["side", "side"],
+        ["side", "side"],
+      ],
+
+      mechanics: {
+        collisionType: "solid",
+
+        planeLoadType: "blocked",
+        planeBlockType: "block",
+
+        playerCrosshairBlocking: true,
       },
     },
   },

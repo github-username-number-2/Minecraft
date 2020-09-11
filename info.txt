@@ -1,4 +1,7 @@
 Global vars:
+  System
+    system info such as version
+    
   THREE
     threejs library
 
@@ -26,5 +29,34 @@ Global vars:
   LoadedWorld
     array containing loaded block objects
 
-  LoadedBlockTypes
-    array containing type of block at each location
+Object names:
+  chunk: chunk mesh
+
+Important objects:
+  Example:
+    description
+
+    example
+
+  Player:
+    controls the player
+
+    get players target block
+  
+  World:
+    things about the world
+    
+    getting blocks
+
+  Environment:
+    controls the environment
+
+    clouds, weather
+  
+  Game:
+    controls the main game stuff
+
+    saving game in file
+
+To do:
+  make different block render types

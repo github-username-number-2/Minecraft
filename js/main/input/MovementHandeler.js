@@ -1,6 +1,11 @@
 import PlayerData from "/js/data/PlayerData.js";
 
-import "./KeyMapper.js";
+import ActiveKeys from "./KeyMapper.js";
+import Mouse from "./MouseTracker.js";
+
+import "./PointerLock.js";
+
+import Player from "../Globals/Player.js";
 
 
 const {forward, backward, left, right, jump} = PlayerData.movement.controls,
@@ -14,22 +19,34 @@ function checkKeyDown(keys) {
   }
 }
 
-export default function updateWASD() {
-  const Vec3 = new THREE.Vector3();
+//stops camera from changing rotation on camera unlock
+const savedRotation = {
+  x: 0,
+  y: 0,
+  z: 0,
+};
+setInterval(() => {
+  savedRotation.x = camera.rotation.x;
+  savedRotation.y = camera.rotation.y;
+  savedRotation.z = camera.rotation.z;
+}, 30);
+
+function updateWASD() {
+  const Vec2 = new THREE.Vector2();
 
   let temp = 0;
 
   if (checkKeyDown(forward)) {
-    Vec3.z += 1;
+    Vec2.y += 1;
   }
   if (checkKeyDown(backward)) {
-    Vec3.z -= 1;
+    Vec2.y -= 1;
   }
   if (checkKeyDown(left)) {
-    Vec3.x += 1;
+    Vec2.x += 1;
   }
   if (checkKeyDown(right)) {
-    Vec3.x -= 1;
+    Vec2.x -= 1;
   }
   //temp
   if (ActiveKeys["KeyQ"]) {
@@ -40,11 +57,13 @@ export default function updateWASD() {
   }
   //temp
 
-  Vec3.normalize();
+  Vec2.normalize();
 
-  controls.moveForward(Vec3.z * speed);
-  controls.moveRight(-Vec3.x * speed);
+  controls.moveForward(Vec2.y * speed);
+  controls.moveRight(-Vec2.x * speed);
   //temp
   camera.position.y += temp * speed;
   //temp
 }
+
+export {updateWASD, savedRotation};

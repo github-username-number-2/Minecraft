@@ -11,5 +11,10 @@ export default {
 
     speed: 800,
     lookSpeed: 800,
-  }
+  },
+
+  blockInteraction: {
+    placementDistance: 3,
+    breakDistance: 3,
+  },
 };

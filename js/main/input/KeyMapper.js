@@ -1,4 +1,4 @@
-window.ActiveKeys = {};
+const ActiveKeys = {};
 
 body.addEventListener("keydown", e => {
   ActiveKeys[e.code] = true;
@@ -15,3 +15,5 @@ body.addEventListener("mousedown", e => {
 body.addEventListener("mouseup", e => {
   ActiveKeys["Mouse"] = false;
 });
+
+export default ActiveKeys;
