@@ -40,7 +40,7 @@ const World = {
       return null;
     }
 
-    const chunk = chunkX + worldWidth * chunkZ + chunkX * chunkZ * chunkY;
+    const chunk = chunkX + worldWidth * chunkZ + worldWidth * worldDepth * chunkY;
     
     if (!LoadedWorld[chunk]) {
       return null;
@@ -62,7 +62,7 @@ const World = {
     const chunkY = Math.floor(y / chunkHeight);
     const chunkZ = Math.floor(z / chunkDepth);
 
-    const chunk = chunkX + worldWidth * chunkZ + chunkX * chunkZ * chunkY;
+    const chunk = chunkX + worldWidth * chunkZ + worldWidth * worldDepth * chunkY;
     
     if (!LoadedWorld[chunk]) {
       return null;
@@ -95,7 +95,7 @@ const World = {
     const chunkY = Math.floor(y / chunkHeight);
     const chunkZ = Math.floor(z / chunkDepth);
 
-    const chunk = chunkX + worldWidth * chunkZ + chunkX * chunkZ * chunkY;
+    const chunk = chunkX + worldWidth * chunkZ + worldWidth * worldDepth * chunkY;
 
     LoadedWorld[chunk].BlockMap[localY][localX][localZ] = new Block(
       localX, localY, localZ, LoadedWorld[chunk], chunk, name

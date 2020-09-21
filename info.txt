@@ -8,6 +8,15 @@ Global vars:
   Lodash
     lodash library
 
+  Crypto
+    cryptoJS library
+
+  SeedRandom
+    generates random number from seed
+
+  RandomInt
+    original Math.random function
+
   canvas
     main canvas element
 
@@ -57,6 +66,27 @@ Important objects:
     controls the main game stuff
 
     saving game in file
+  
+World generation types:
+  Example:
+    description
+
+    required properties
+
+   Normal:
+    normal world
+
+    seed
+    size
+    generateStructures
+
+  Superflat:
+    normal world
+
+    seed
+    size
+    generateStructures
+    layers
 
 To do:
   make different block render types

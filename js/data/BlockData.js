@@ -108,5 +108,25 @@ export default {
         playerCrosshairBlocking: true,
       },
     },
+
+    bedrock: {
+      renderBlock: true,
+
+      location: "bedrock",
+      dimensions: [
+        ["side", "side"],
+        ["side", "side"],
+        ["side", "side"],
+      ],
+
+      mechanics: {
+        collisionType: "solid",
+
+        planeLoadType: "blocked",
+        planeBlockType: "block",
+
+        playerCrosshairBlocking: true,
+      },
+    },
   },
 };

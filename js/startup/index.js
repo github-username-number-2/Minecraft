@@ -2,6 +2,7 @@ import EventManager from "/js/libraries/EventManager.js";
 
 import loadTextures from "/js/startup/loaders/textureLoader.js";
 import loadWorld from "/js/main/worldLoading/loadWorld.js";
+import generateWorld from "/js/main/worldGeneration/generateWorld.js";
 
 import {updateWASD} from "/js/main/input/MovementHandeler.js";
 
@@ -9,99 +10,44 @@ import {updateWASD} from "/js/main/input/MovementHandeler.js";
 //temp
 scene.background = new THREE.Color(0x81ceeb);
 
-window.world = [];
-world.push([
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","oakWood","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-],[
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-],[
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-],[
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-],[
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-],[
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-],[
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-],[
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-],[
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["dirt","dirt","dirt"],["dirt","dirt","dirt"],["dirt","dirt","dirt"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-  [["air","air","air"],["air","air","air"],["air","air","air"]],
-]);
-
-
 loadTextures().then(loadedTextures => {
   window.BlockTextures = loadedTextures;
   
-  loadWorld(world);
+  generateWorld({
+    type: "Superflat",
+    seed: "",
+    size: {
+      width: 2,
+      height: 2,
+      depth: 2,
+    },
+    generateStructures: true,
+    //should be 1 less than chunk height to account for bedrock
+    layers: [
+      "stone",
+      "stone",
+      "stone",
+      "stone",
+      "stone",
+      "dirt",
+      "stone",
+      "stone",
+      "stone",
+      "dirt",
+      "dirt",
+      "air",
+      "air",
+      "oakWood",
+      "air",
+    ]
+  }, e => console.log(e)).then(world => {
+    window.world = world
+    loadWorld(world);
   
-  renderer.render(scene, camera);
-
-  console.log("Started successfully");
+    renderer.render(scene, camera);
+    
+    console.log("Started successfully");
+  });
 });
 //temp
 

@@ -86,7 +86,7 @@ function getTarget(type) {
   //removes non-chunk targets
   targets.filter(target => target.object.name === "chunk");
 
-  for (const target of targets) {console.log(target.point)
+  for (const target of targets) {
     const targetBlock = getBlockFromPoint(target.point, type);
     if (targetBlock) {
       return targetBlock;
@@ -105,12 +105,6 @@ const Player = {
   },
 };
 
-body.onclick = function() {
-  if (ActiveKeys["KeyR"]) {
-    Player.currentReplaceTarget && Player.currentReplaceTarget.replace("air");
-  } else {
-    Player.currentPlaceTarget && Player.currentPlaceTarget.replace("stone");
-  }
-};
-
 export default Player;
+
+window.P=Player

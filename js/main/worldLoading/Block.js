@@ -11,10 +11,14 @@ const chunkWidth = WorldData.size.chunks.width,
 
 const worldSize = WorldData.size;
 
+//////////////////////////////////////////////////////////////////////temp
+const scale = 10;
+//////////////////////////////////////////////////////////////////////temp
+
 const PlaneGeometry = new THREE.PlaneGeometry(
-  blockSize,
-  blockSize,
-  blockSize
+  blockSize / scale,
+  blockSize / scale,
+  blockSize / scale,
 );
 
 const boundingPlaneBlockingType = WorldData.boundingPlaneBlockingType;
@@ -34,7 +38,6 @@ class Block {
     };
 
     //chunk location
-    //important
     this.chunkX = chunkNumber % worldSize.width;
     this.chunkY = Math.floor(chunkNumber / (worldSize.width * worldSize.depth));
     this.chunkZ = Math.floor(chunkNumber / worldSize.width) - this.chunkY * worldSize.depth;
@@ -65,7 +68,10 @@ class Block {
 
     this.parentChunk.update();
 
-    this.getSurroundingChunks().forEach(chunk => chunk && chunk.update());
+    const savedChunkNumbers = [this.parentChunk.chunkNumber];   
+    this.getSurroundingChunks().forEach(chunk =>
+      chunk && !savedChunkNumbers.includes(chunk.chunkNumber) && chunk.update()
+    );
   }
 
   getSurroundingBlocks() {
@@ -152,14 +158,17 @@ class Block {
           index = -1;
         }
         plane.position.set(
-          index * offsetX + this.localX * blockSize + this.chunkX * chunkWidth * blockSize + half,
-          index * offsetY + this.localY * blockSize + this.chunkY * chunkHeight * blockSize + half,
-          index * offsetZ + this.localZ * blockSize + this.chunkZ * chunkDepth * blockSize + half,
+          (index * offsetX + this.localX * blockSize + this.chunkX * chunkWidth * blockSize + half) / scale,
+          (index * offsetY + this.localY * blockSize + this.chunkY * chunkHeight * blockSize + half) / scale,
+          (index * offsetZ + this.localZ * blockSize + this.chunkZ * chunkDepth * blockSize + half) / scale,
         );
 
         plane.updateMatrix();
 
         this.parentChunk.renderList.blocks.push([plane.geometry, plane.matrix]);
+        plane.geometry.dispose();
+        plane.material.dispose();
+        
         this.parentChunk.textureList.blocks.push(material);
       });
     }

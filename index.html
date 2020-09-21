@@ -1,3 +1,7 @@
+<!--
+  made by luke baja ricketts
+-->
+
 <!DOCTYPE html>
 <html>
 
@@ -10,7 +14,18 @@
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
 	<link href="images/favicon.png" rel="icon" />
 
-	<script src="js/libraries/lodash.js">
+  <script>
+    //saves default Math.random
+    window.RandomInt = Math.random;
+  </script>
+
+	<script src="js/libraries/Lodash.js">
+
+	</script>
+	<script src="js/libraries/Crypto.js">
+
+	</script>
+  <script src="js/libraries/SeedRandom.js">
 
 	</script>
 </head>
@@ -23,21 +38,27 @@
     import System from "/js/data/SystemData.js";
     
     window.THREE = THREE;
-    window.System = System;
-
+		window.System = System;
+    
     //replaces lodash library name
     window.Lodash = _;
     delete window._;
+
+    //SeedRandom
+    window.SeedRandom = seed => {
+      Math.seedrandom(seed);
+      return Math.random();
+    };
     
+
     window.query = q => document.querySelector(q);
 		window.queryAll = q => document.querySelectorAll(q);
     
     window.body = document.body;
-    
     window.canvas = query("#canvas");
     
     addEventListener("error", e => {
-      alert(e.message, e.lineno);
+      alert(e.message);
     });
 	</script>
 

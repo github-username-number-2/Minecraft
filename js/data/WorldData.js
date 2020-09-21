@@ -7,15 +7,15 @@ export default {
   size: {
     //measured in chunks
     //should multiply to get total chunks
-    width: 3,
-    height: 1,
-    depth: 3,
+    width: 2,
+    height: 2,
+    depth: 2,
 
     chunks: {
       //measured in blocks
-      width: 3,
+      width: 8,
       height: 8,
-      depth: 3,
+      depth: 8,
     },
   }
 };

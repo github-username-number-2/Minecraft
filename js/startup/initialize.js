@@ -11,7 +11,7 @@ window.scene = new THREE.Scene();
 
 window.renderer = new THREE.WebGLRenderer({
   canvas,
-  powerPreference: "high-performance",
+  //powerPreference: "high-performance",
 });
 
 window.AM = new AnimationManager();

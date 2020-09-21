@@ -1,9 +1,9 @@
 import Block from "./Block.js";
-import BlockData from "/js/data/BlockData.js";
+//import BlockData from "/js/data/BlockData.js";
 
 
 class Chunk {
-  constructor(map, index) {
+  constructor(map, index, world) {
     this.BlockMap = map;
 
     this.renderList = {
@@ -28,7 +28,7 @@ class Chunk {
 
   update() {
     this.LoadedMesh && scene.remove(this.LoadedMesh);
-
+    
     for (const list in this.renderList) {
       this.renderList[list] = [];
     }

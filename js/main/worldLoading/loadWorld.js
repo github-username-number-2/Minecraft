@@ -6,11 +6,10 @@ window.World = World;
 async function loadWorld(world) {
   window.LoadedWorld = Lodash.cloneDeep(world);
 
-
   world.forEach((chunk, chunkIndex) => {
-    LoadedWorld[chunkIndex] = new Chunk(chunk, chunkIndex);
+    LoadedWorld[chunkIndex] = new Chunk(chunk, chunkIndex, world);
   });
-
+  
   LoadedWorld.forEach(chunk => chunk.update());
 
   console.log("World loaded");
