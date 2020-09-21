@@ -60,7 +60,7 @@ Important objects:
   Environment:
     controls the environment
 
-    clouds, weather
+    clouds, weather, mobs
   
   Game:
     controls the main game stuff
