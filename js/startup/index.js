@@ -22,7 +22,7 @@ loadTextures().then(loadedTextures => {
       depth: 2,
     },
     generateStructures: true,
-    //should be 1 less than chunk height to account for bedrock
+    //should be 1 less than world height to account for bedrock
     layers: [
       "stone",
       "stone",
@@ -51,19 +51,7 @@ loadTextures().then(loadedTextures => {
 });
 //temp
 
-
-
-const color = 0xFFFFFF;
-const intensity = 0.5;
-let light = new THREE.DirectionalLight(color, intensity);
-light.position.set(-1, 2, 4);
-scene.add(light);
-light = new THREE.DirectionalLight(color, intensity);
-light.position.set(1, -2, 10);
-scene.add(light);
-//temp
-
-AM.functions.push(async () => renderer.render(scene, camera));
+AM.functions.push(() => renderer.render(scene, camera));
 AM.functions.push(updateWASD);
 AM.start();
 

@@ -1,10 +1,11 @@
 import Block from "./Block.js";
-//import BlockData from "/js/data/BlockData.js";
 
 
 class Chunk {
   constructor(map, index, world) {
     this.BlockMap = map;
+
+    this.chunkNumber = index;
 
     this.renderList = {
       blocks: [],

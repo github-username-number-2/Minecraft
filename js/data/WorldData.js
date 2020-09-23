@@ -1,8 +1,9 @@
 export default {
-  airName: "air",
-
   boundingCollisionType: "solid",
   boundingPlaneBlockingType: "allow",
+
+  //blockMaterialType: THREE.MeshLambertMaterial,
+  blockMaterialType: THREE.MeshBasicMaterial,
 
   size: {
     //measured in chunks

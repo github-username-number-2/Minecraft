@@ -107,4 +107,4 @@ const Player = {
 
 export default Player;
 
-window.P=Player
+window.Player = Player;

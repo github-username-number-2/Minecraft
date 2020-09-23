@@ -12,13 +12,13 @@ const chunkWidth = WorldData.size.chunks.width,
 const worldSize = WorldData.size;
 
 //////////////////////////////////////////////////////////////////////temp
-const scale = 10;
+//const scale = 10;
 //////////////////////////////////////////////////////////////////////temp
 
 const PlaneGeometry = new THREE.PlaneGeometry(
-  blockSize / scale,
-  blockSize / scale,
-  blockSize / scale,
+  blockSize/* / scale*/,
+  blockSize/* / scale*/,
+  blockSize/* / scale*/,
 );
 
 const boundingPlaneBlockingType = WorldData.boundingPlaneBlockingType;
@@ -69,9 +69,12 @@ class Block {
     this.parentChunk.update();
 
     const savedChunkNumbers = [this.parentChunk.chunkNumber];   
-    this.getSurroundingChunks().forEach(chunk =>
-      chunk && !savedChunkNumbers.includes(chunk.chunkNumber) && chunk.update()
-    );
+    this.getSurroundingChunks().forEach(chunk => {
+      if (chunk && !savedChunkNumbers.includes(chunk.chunkNumber)) {
+        chunk.update();
+        savedChunkNumbers.push(chunk.chunkNumber);
+      }
+    });
   }
 
   getSurroundingBlocks() {
@@ -158,9 +161,9 @@ class Block {
           index = -1;
         }
         plane.position.set(
-          (index * offsetX + this.localX * blockSize + this.chunkX * chunkWidth * blockSize + half) / scale,
-          (index * offsetY + this.localY * blockSize + this.chunkY * chunkHeight * blockSize + half) / scale,
-          (index * offsetZ + this.localZ * blockSize + this.chunkZ * chunkDepth * blockSize + half) / scale,
+          (index * offsetX + this.localX * blockSize + this.chunkX * chunkWidth * blockSize + half)/* / scale*/,
+          (index * offsetY + this.localY * blockSize + this.chunkY * chunkHeight * blockSize + half)/* / scale*/,
+          (index * offsetZ + this.localZ * blockSize + this.chunkZ * chunkDepth * blockSize + half)/* / scale*/,
         );
 
         plane.updateMatrix();

@@ -59,10 +59,10 @@ function updateWASD() {
 
   Vec2.normalize();
 
-  controls.moveForward(Vec2.y * speed / 10);
-  controls.moveRight(-Vec2.x * speed / 10);
+  controls.moveForward(Vec2.y * speed);
+  controls.moveRight(-Vec2.x * speed);
   //temp
-  camera.position.y += temp * speed / 10;
+  camera.position.y += temp * speed;
   //temp
 }
 

@@ -104,3 +104,5 @@ const World = {
 };
 
 export default World;
+
+window.world = World;
