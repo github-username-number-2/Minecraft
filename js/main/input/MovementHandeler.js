@@ -63,6 +63,17 @@ function updateWASD() {
   controls.moveRight(-Vec2.x * speed);
   //temp
   camera.position.y += temp * speed;
+
+  if (ActiveKeys["LeftMouse"]) {
+    ActiveKeys["LeftMouse"] = false;
+
+    Player.currentReplaceTarget && Player.currentReplaceTarget.replace("air");
+  }
+  if (ActiveKeys["RightMouse"]) {
+    ActiveKeys["RightMouse"] = false;
+
+    Player.currentPlaceTarget && Player.currentPlaceTarget.replace("dirt");
+  }
   //temp
 }
 

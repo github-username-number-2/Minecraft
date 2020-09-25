@@ -8,6 +8,11 @@ import {updateWASD} from "/js/main/input/MovementHandeler.js";
 
 
 //temp
+
+camera.position.x = -2;
+camera.position.y = 2;
+camera.rotation.y = -1.5;
+
 scene.background = new THREE.Color(0x81ceeb);
 
 loadTextures().then(loadedTextures => {
