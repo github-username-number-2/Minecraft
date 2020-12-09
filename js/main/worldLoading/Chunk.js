@@ -51,8 +51,6 @@ class Chunk {
       chunkGeometry.merge(renderInfo[0], renderInfo[1], index);
     });
 
-    //chunkGeometry.updateMatrix();
-
     const chunkBufferGeometry = new THREE.BufferGeometry().fromGeometry(chunkGeometry);
     
     this.LoadedMesh = new THREE.Mesh(chunkBufferGeometry, this.textureList.blocks);

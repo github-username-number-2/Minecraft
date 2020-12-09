@@ -9,7 +9,7 @@ import Player from "../Globals/Player.js";
 
 
 const {forward, backward, left, right, jump} = PlayerData.movement.controls,
-  speed = PlayerData.movement.speed / 10000;
+  speed = PlayerData.movement.speed / 100000;
 
 function checkKeyDown(keys) {
   for (const key of keys) {
@@ -31,7 +31,7 @@ setInterval(() => {
   savedRotation.z = camera.rotation.z;
 }, 30);
 
-function updateWASD() {
+function updateWASD(elapsedTime) {
   const Vec2 = new THREE.Vector2();
 
   let temp = 0;
@@ -59,10 +59,13 @@ function updateWASD() {
 
   Vec2.normalize();
 
+  Vec2.x *= elapsedTime;
+  Vec2.y *= elapsedTime;
+
   controls.moveForward(Vec2.y * speed);
   controls.moveRight(-Vec2.x * speed);
   //temp
-  camera.position.y += temp * speed;
+  camera.position.y += temp * speed * elapsedTime;
 
   if (ActiveKeys["LeftMouse"]) {
     ActiveKeys["LeftMouse"] = false;

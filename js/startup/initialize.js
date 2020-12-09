@@ -14,7 +14,7 @@ window.renderer = new THREE.WebGLRenderer({
   //powerPreference: "high-performance",
 });
 
-window.AM = new AnimationManager();
+//window.AM = new AnimationManager();
 
 const script = document.createElement("script");
 script.src = "js/startup/index.js";

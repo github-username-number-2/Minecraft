@@ -56,12 +56,24 @@ loadTextures().then(loadedTextures => {
 });
 //temp
 
-AM.functions.push(() => renderer.render(scene, camera));
+/*AM.functions.push(() => renderer.render(scene, camera));
 AM.functions.push(updateWASD);
-AM.start();
+AM.start();*/
+let lastTime = 0, elapsedTime;
+function update(timestamp) {
+  elapsedTime = timestamp - lastTime;
 
-document.addEventListener("visibilitychange", () => {
+  updateWASD(elapsedTime);
+  renderer.render(scene, camera);
+  
+  lastTime = timestamp;
+
+  requestAnimationFrame(update);
+}
+requestAnimationFrame(update);
+
+/*document.addEventListener("visibilitychange", () => {
   document.hidden ? AM.stop() : AM.start();
-});
+});*/
 
 console.log("Done");
