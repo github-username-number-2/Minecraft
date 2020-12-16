@@ -26,6 +26,8 @@ export default {
     horizontalSpeed: 800,
     verticalSpeed: 600,
     lookSpeed: 800,
+
+    defaultSpawnLocation: [6, 16, 6],
   },
 
   blockInteraction: {

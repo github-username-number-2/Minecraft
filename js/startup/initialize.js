@@ -3,7 +3,7 @@ import AnimationManager from "/js/libraries/AnimationManager.js";
 import CameraData from "/js/data/CameraData.js";
 
 
-const {fov, aspect, near, far} = CameraData;
+const { fov, aspect, near, far } = CameraData;
 
 window.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
@@ -24,9 +24,11 @@ events.forEach(event =>
 */
 
 
-const script = document.createElement("script");
-script.src = "js/startup/index.js";
+addEventListener("load", () => {
+  const script = document.createElement("script");
+  script.src = "js/startup/index.js";
 
-script.setAttribute("type", "module");
+  script.setAttribute("type", "module");
 
-body.append(script);
+  body.append(script);
+});

@@ -1,4 +1,6 @@
 import WorldData from "/js/data/WorldData.js";
+import PlayerData from "/js/data/PlayerData.js";
+import BlockData from "/js/data/BlockData.js";
 
 import EventManager from "/js/libraries/EventManager.js";
 
@@ -12,9 +14,9 @@ import { updateInput } from "/js/main/input/MovementHandeler.js";
 
 //temp
 
-camera.position.x = -2;
-camera.position.y = 2;
-camera.rotation.y = -1.5;
+camera.position.x = PlayerData.movement.defaultSpawnLocation[0] * BlockData.size;
+camera.position.y = PlayerData.movement.defaultSpawnLocation[1] * BlockData.size;
+camera.position.z = PlayerData.movement.defaultSpawnLocation[2] * BlockData.size;
 
 scene.background = new THREE.Color(0x81ceeb);
 
@@ -52,8 +54,6 @@ scene.background = new THREE.Color(0x81ceeb);
   }, progress => console.log(progress));
 
   loadWorld(world);
-
-  renderer.render(scene, camera);
 
   import("/js/main/render.js");
 
