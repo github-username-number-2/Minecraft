@@ -103,6 +103,19 @@ const Player = {
   get currentPlaceTarget() {
     return getTarget("place");
   },
+
+  hotbarSelectNumber: 0,
+  hotbar: [
+    "grass",
+    "stone",
+    "bedrock",
+    "oakWood",
+    "oakPlanks",
+    null,
+    null,
+    null,
+    null,
+  ],
 };
 
 export default Player;

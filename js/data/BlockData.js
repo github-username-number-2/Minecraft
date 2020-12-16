@@ -1,3 +1,14 @@
+const solidMechanics = {
+  mechanics: {
+    collisionType: "solid",
+
+    planeLoadType: "blocked",
+    planeBlockType: "block",
+
+    playerCrosshairBlocking: true,
+  },
+};
+
 export default {
   size: 1.1,
 
@@ -15,7 +26,8 @@ export default {
       {
         blocksPerPlane: number of blocks per side,
 
-        location: null,
+        location: default image location or set to null to specify,
+        blockType = block, cross, or custom,
         dimensions: [
           ["blockname:top", "blockname:bottom"],
           ["blockname:side", "blockname:side"],
@@ -49,84 +61,101 @@ export default {
       },
     },
 
-    dirt: {
+    grass: {
       renderBlock: true,
 
-      location: "dirt",
+      location: "grass",
+      blockType: "block",
       dimensions: [
         ["top", "bottom"],
         ["side", "side"],
         ["side", "side"],
       ],
 
-      mechanics: {
-        collisionType: "solid",
+      ...solidMechanics,
+    },
 
-        planeLoadType: "blocked",
-        planeBlockType: "block",
+    dirt: {
+      renderBlock: true,
 
-        playerCrosshairBlocking: true,
-      },
+      location: "grass",
+      blockType: "block",
+      dimensions: [
+        ["bottom", "bottom"],
+        ["bottom", "bottom"],
+        ["bottom", "bottom"],
+      ],
+
+      ...solidMechanics,
     },
 
     stone: {
       renderBlock: true,
 
       location: "stone",
+      blockType: "block",
       dimensions: [
         ["side", "side"],
         ["side", "side"],
         ["side", "side"],
       ],
 
-      mechanics: {
-        collisionType: "solid",
-
-        planeLoadType: "blocked",
-        planeBlockType: "block",
-
-        playerCrosshairBlocking: true,
-      },
+      ...solidMechanics,
     },
 
     oakWood: {
       renderBlock: true,
 
       location: "oakWood",
+      blockType: "block",
       dimensions: [
         ["top", "top"],
         ["side", "side"],
         ["side", "side"],
       ],
 
-      mechanics: {
-        collisionType: "solid",
-
-        planeLoadType: "blocked",
-        planeBlockType: "block",
-
-        playerCrosshairBlocking: true,
-      },
+      ...solidMechanics,
     },
 
-    bedrock: {
+    oakPlanks: {
       renderBlock: true,
 
-      location: "bedrock",
+      location: "oakPlanks",
+      blockType: "block",
       dimensions: [
         ["side", "side"],
         ["side", "side"],
         ["side", "side"],
       ],
 
-      mechanics: {
-        collisionType: "solid",
+      ...solidMechanics,
+    },
 
-        planeLoadType: "blocked",
-        planeBlockType: "block",
+    bedrock: {
+      renderBlock: true,
 
-        playerCrosshairBlocking: true,
-      },
+      location: "bedrock",
+      blockType: "block",
+      dimensions: [
+        ["side", "side"],
+        ["side", "side"],
+        ["side", "side"],
+      ],
+
+      ...solidMechanics,
+    },
+
+    redstoneTorch: {
+      renderBlock: true,
+
+      location: "redstoneTorch",
+      blockType: "cross",
+      dimensions: [
+        "side",
+        "side",
+      ],
+
+      ...solidMechanics,
     },
   },
 };

@@ -8,8 +8,17 @@ import "./PointerLock.js";
 import Player from "../Globals/Player.js";
 
 
-const {forward, backward, left, right, jump} = PlayerData.movement.controls,
-  speed = PlayerData.movement.speed / 100000;
+const {
+  forward,
+  backward,
+  left,
+  right,
+  jump,
+  crouch,
+  hotbar,
+} = PlayerData.movement.controls,
+  horizantalSpeed = PlayerData.movement.horizontalSpeed / 100000,
+  verticalSpeed = PlayerData.movement.verticalSpeed / 100000;
 
 function checkKeyDown(keys) {
   for (const key of keys) {
@@ -31,10 +40,10 @@ setInterval(() => {
   savedRotation.z = camera.rotation.z;
 }, 30);
 
-function updateWASD(elapsedTime) {
+function updateInput(deltaTime) {
   const Vec2 = new THREE.Vector2();
 
-  let temp = 0;
+  let vertical = 0;
 
   if (checkKeyDown(forward)) {
     Vec2.y += 1;
@@ -48,24 +57,30 @@ function updateWASD(elapsedTime) {
   if (checkKeyDown(right)) {
     Vec2.x -= 1;
   }
-  //temp
-  if (ActiveKeys["KeyQ"]) {
-    temp += 1;
+  if (checkKeyDown(jump)) {
+    vertical += 1;
   }
-  if (ActiveKeys["KeyE"]) {
-    temp -= 1;
+  if (checkKeyDown(crouch)) {
+    vertical -= 1;
   }
-  //temp
 
   Vec2.normalize();
 
-  Vec2.x *= elapsedTime;
-  Vec2.y *= elapsedTime;
+  Vec2.x *= deltaTime * horizantalSpeed;
+  Vec2.y *= deltaTime * horizantalSpeed;
 
-  controls.moveForward(Vec2.y * speed);
-  controls.moveRight(-Vec2.x * speed);
-  //temp
-  camera.position.y += temp * speed * elapsedTime;
+  controls.moveForward(Vec2.y);
+  controls.moveRight(-Vec2.x);
+  
+  camera.position.y += vertical * verticalSpeed * deltaTime;
+
+  hotbar.forEach((keys, index) => {
+    keys.forEach(key => {
+      if (ActiveKeys[key]) {
+        Player.hotbarSelectNumber = index;
+      }
+    });
+  });
 
   if (ActiveKeys["LeftMouse"]) {
     ActiveKeys["LeftMouse"] = false;
@@ -74,10 +89,11 @@ function updateWASD(elapsedTime) {
   }
   if (ActiveKeys["RightMouse"]) {
     ActiveKeys["RightMouse"] = false;
-
-    Player.currentPlaceTarget && Player.currentPlaceTarget.replace("dirt");
+    if (Player.hotbar[Player.])
+    Player.currentPlaceTarget && Player.currentPlaceTarget.replace(
+      Player.hotbar[Player.hotbarSelectNumber]
+    );
   }
-  //temp
 }
 
-export {updateWASD, savedRotation};
+export {updateInput, savedRotation};

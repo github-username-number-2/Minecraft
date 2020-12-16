@@ -38,6 +38,9 @@ Global vars:
   LoadedWorld
     array containing loaded block objects
 
+  Images
+    object containing loaded images
+
 Object names:
   chunk: chunk mesh
 

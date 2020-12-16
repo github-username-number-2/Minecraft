@@ -11,6 +11,7 @@ export default async function loadTextures() {
     for (const side in textures[block]) {
       const image = await loadImage(textures[block][side]);
       const texture = new THREE.CanvasTexture(image);
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
       
       Textures[block][side] = new WorldData.blockMaterialType({
         map: image

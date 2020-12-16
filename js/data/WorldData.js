@@ -8,10 +8,10 @@ export default {
   size: {
     //measured in chunks
     //should multiply to get total chunks
-    width: 2,
+    width: 4,
     height: 2,
-    depth: 2,
-
+    depth: 4,
+    
     chunks: {
       //measured in blocks
       width: 8,

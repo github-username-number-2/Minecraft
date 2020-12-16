@@ -68,7 +68,7 @@ class Block {
 
     this.parentChunk.update();
 
-    const savedChunkNumbers = [this.parentChunk.chunkNumber];   
+    const savedChunkNumbers = [this.parentChunk.chunkNumber];
     this.getSurroundingChunks().forEach(chunk => {
       if (chunk && !savedChunkNumbers.includes(chunk.chunkNumber)) {
         chunk.update();
@@ -101,7 +101,7 @@ class Block {
 
       World.getChunkByWorldCoords(this.worldX + 1, this.worldY, this.worldZ),
       World.getChunkByWorldCoords(this.worldX - 1, this.worldY, this.worldZ),
-      
+
       World.getChunkByWorldCoords(this.worldX, this.worldY, this.worldZ + 1),
       World.getChunkByWorldCoords(this.worldX, this.worldY, this.worldZ - 1),
     ];
@@ -117,7 +117,7 @@ class Block {
 
     for (let i = 0; i < 3; i++) {
       this.renderInfo.map[i].forEach((side, index) => {
-        
+
         //checks if block is of plane blocking type
         if (!surroundingBlocks[i][index]) {
           if (boundingPlaneBlockingType === "block") {
@@ -171,7 +171,7 @@ class Block {
         this.parentChunk.renderList.blocks.push([plane.geometry, plane.matrix]);
         plane.geometry.dispose();
         plane.material.dispose();
-        
+
         this.parentChunk.textureList.blocks.push(material);
       });
     }

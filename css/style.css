@@ -2,10 +2,13 @@ html, body {
   position: absolute;
   padding: 0px;
   margin: 0px;
+  background-color: #000000;
 }
 
-canvas {
+canvas, canvas-2d {
   position: absolute;
-  width: 100vw;
-  height: calc(100vw - 40vw);
+  width: 200vh;
+  height: 100vh;
+  left: calc((100vw - 200vh) / 2);
+  top: 0vh;
 }

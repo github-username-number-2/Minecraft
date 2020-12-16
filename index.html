@@ -1,5 +1,6 @@
 <!--
   made by luke baja ricketts
+  Copyright: Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) 2020, notblockedgames.cf
 -->
 
 <!DOCTYPE html>
@@ -32,6 +33,7 @@
 
 <body>
 	<canvas id="canvas" width="1000" height="600"></canvas>
+  <canvas id="canvas-2d" width="1000" height="600"></canvas>
 
 	<script type="module">
 		import * as THREE from "/js/libraries/three.module.js";
@@ -56,11 +58,11 @@
     
     window.body = document.body;
     window.canvas = query("#canvas");
+    window.canvas2D = query("#canvas-2d");
+    window.ctx2D = canvas2D.getContext("2d");
     
     addEventListener("error", e => {
       alert(e.message);
-      alert(e.lineNumber);
-      alert(e.fileName);
     });
 	</script>
 
