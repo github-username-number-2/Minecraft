@@ -61,8 +61,8 @@
     window.canvas2D = query("#canvas-2d");
     window.ctx2D = canvas2D.getContext("2d");
     
-    addEventListener("error", e => {
-      alert(e.message);
+    addEventListener("error", error => {
+      alert(error.message);
     });
 	</script>
 

@@ -34,4 +34,16 @@ export default {
     placementDistance: 3,
     breakDistance: 3,
   },
+
+  defaultHotbar: [
+    "grass",
+    "dirt",
+    "stone",
+    "cobblestone",
+    "stoneBricks",
+    "oakPlanks",
+    "oakWood",
+    "bedrock",
+    "notblockedgames",
+  ],
 };

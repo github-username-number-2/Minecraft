@@ -3,6 +3,7 @@ import World from "./World.js";
 import Mouse from "/js/main/input/MouseTracker.js";
 import ActiveKeys from "/js/main/input/KeyMapper.js";
 
+import PlayerData from "/js/data/PlayerData.js";
 import BlockData from "/js/data/BlockData.js";
 
 const blockSize = BlockData.size;
@@ -105,17 +106,7 @@ const Player = {
   },
 
   hotbarSelectNumber: 0,
-  hotbar: [
-    "grass",
-    "stone",
-    "bedrock",
-    "oakWood",
-    "oakPlanks",
-    null,
-    null,
-    null,
-    null,
-  ],
+  hotbar: PlayerData.defaultHotbar,
 };
 
 export default Player;

@@ -7,16 +7,32 @@ export default {
     height
   ]
   */
+  hotbarScale: 1,
   hotbar: [
-    318,
+    304,
     525,
-    364,
+    392,
     44,
   ],
   hotbarSelected: [
-    318,
+    302,
     525,
-    44,
-    44,
+    50,
+    50,
   ],
+  icons: {
+    size: 28,
+  },
+  //x offset added per slot index
+  selectorIndexOffset: -0.9,
+  selectorXOffset: 0.6,
+  selectorYOffset: -3,
+
+  //x offset added per slot index
+  iconIndexOffset: -0.9,
+  iconXOffset: 1.8,
+  iconYOffset: 0.3,
+
+  //opacity 0-1
+  hotbarItemOpacity: 1,
 };

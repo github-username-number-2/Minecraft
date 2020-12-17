@@ -12,11 +12,14 @@ import generateWorld from "/js/main/worldGeneration/generateWorld.js";
 import { updateInput } from "/js/main/input/MovementHandeler.js";
 
 
+const defSpawn = PlayerData.movement.defaultSpawnLocation;
+camera.position.x = defSpawn[0] * BlockData.size;
+camera.position.y = defSpawn[1] * BlockData.size;
+camera.position.z = defSpawn[2] * BlockData.size;
+
+
 //temp
 
-camera.position.x = PlayerData.movement.defaultSpawnLocation[0] * BlockData.size;
-camera.position.y = PlayerData.movement.defaultSpawnLocation[1] * BlockData.size;
-camera.position.z = PlayerData.movement.defaultSpawnLocation[2] * BlockData.size;
 
 scene.background = new THREE.Color(0x81ceeb);
 
@@ -24,8 +27,25 @@ scene.background = new THREE.Color(0x81ceeb);
   window.BlockTextures = await loadTextures();
   window.Images = await load2dImages();
 
+  let worldType = "Superflat";
+  
+  //sets up testing environment
+  await new Promise(resolve => {
+    document.addEventListener("keydown", event => {
+      if (event.code === "KeyQ") {
+        worldType = "Normal";
+        console.log("small_penis.exe is loading");
+        resolve();
+      }
+    });
+    //imortant (for some reason)
+    setTimeout(() => {
+      resolve();
+    }, 2000);
+  });
+
   window.world = await generateWorld({
-    type: "Superflat",
+    type: worldType,
     seed: "",
     size: {
       width: WorldData.size.width,
@@ -47,6 +67,23 @@ scene.background = new THREE.Color(0x81ceeb);
       "dirt",
       "dirt",
       "grass",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
+      "air",
       "air",
       "air",
       "air",

@@ -10,8 +10,13 @@ export default function load2dImages() {
         resolve(images);
         return;
       }
-      const image = images[imageNames[index]] = new Image(500, 500);
+      const loadTimeout = setTimeout(() => {
+        throw new TypeError("Image to be loaded with path /image/" + imageList[imageNames[index]] + " was not found");
+      }, 1000),
+        image = images[imageNames[index]] = new Image(500, 500);
+      
       image.onload = () => {
+        clearTimeout(loadTimeout);
         load2dImage(index + 1);
       };
       image.src = "/images/" + imageList[imageNames[index]];

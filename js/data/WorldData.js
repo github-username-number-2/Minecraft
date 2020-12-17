@@ -9,7 +9,7 @@ export default {
     //measured in chunks
     //should multiply to get total chunks
     width: 4,
-    height: 2,
+    height: 4,
     depth: 4,
     
     chunks: {

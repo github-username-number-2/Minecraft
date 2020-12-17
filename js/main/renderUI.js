@@ -2,6 +2,20 @@ import Player from "/js/main/Globals/Player.js";
 
 import UIData from "/js/data/UIData.js";
 
+const {
+  hotbarScale,
+  hotbarItemOpacity,
+  hotbar,
+  icons,
+  iconIndexOffset,
+  iconXOffset,
+  iconYOffset,
+  hotbarSelected,
+  selectorIndexOffset,
+  selectorXOffset,
+  selectorYOffset,
+} = UIData;
+
 export default function renderUI(deltaTime) {
   ctx2D.clearRect(0, 0, canvas2D.width, canvas2D.height);
   ctx2D.fillStyle = "#b5b5b5";
@@ -24,13 +38,27 @@ export default function renderUI(deltaTime) {
 
   ctx2D.drawImage(
     Images.hotbar,
-    ...UIData.hotbar,
+    hotbar[0] * hotbarScale,
+    hotbar[1] * hotbarScale,
+    hotbar[2] * hotbarScale,
+    hotbar[3] * hotbarScale,
   );
   ctx2D.drawImage(
     Images.hotbarSelected,
-    UIData.hotbarSelected[0] + (UIData.hotbarSelected[2] - 4) * Player.hotbarSelectNumber,
-    UIData.hotbarSelected[1],
-    UIData.hotbarSelected[2],
-    UIData.hotbarSelected[3],
+    (hotbarSelected[0] + (hotbar[3] + selectorIndexOffset) * Player.hotbarSelectNumber + selectorXOffset) * hotbarScale,
+    (hotbarSelected[1] + selectorYOffset) * hotbarScale,
+    hotbarSelected[2] * hotbarScale,
+    hotbarSelected[3] * hotbarScale,
   );
+  ctx2D.globalAlpha = hotbarItemOpacity;
+  Player.hotbar.forEach((blockName, index) => {
+    blockName && ctx2D.drawImage(
+      Images[blockName],
+      (hotbar[0] + (hotbar[3] + iconIndexOffset) * index + (hotbar[3] - icons.size) / 2 + iconXOffset) * hotbarScale,
+      (hotbar[1] + (hotbar[3] - icons.size) / 2 + iconYOffset) * hotbarScale,
+      icons.size * hotbarScale,
+      icons.size * hotbarScale,
+    );
+  });
+  ctx2D.globalAlpha = 1;
 }

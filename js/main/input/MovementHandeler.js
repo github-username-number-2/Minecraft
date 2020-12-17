@@ -89,7 +89,7 @@ function updateInput(deltaTime) {
   }
   if (ActiveKeys["RightMouse"]) {
     ActiveKeys["RightMouse"] = false;
-    if (Player.hotbar[Player.])
+    if (Player.hotbar[Player.hotbarSelectNumber])
     Player.currentPlaceTarget && Player.currentPlaceTarget.replace(
       Player.hotbar[Player.hotbarSelectNumber]
     );

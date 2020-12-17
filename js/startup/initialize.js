@@ -11,18 +11,9 @@ window.scene = new THREE.Scene();
 
 window.renderer = new THREE.WebGLRenderer({
   canvas,
-  powerPreference: "high-performance",
+  ...CameraData.rendererData,
 });
 renderer.setPixelRatio(devicePixelRatio);
-
-//window.AM = new AnimationManager();
-
-/*const events = ["click", "mousemove", "mouseover", "mouseout"];
-events.forEach(event =>
-  canvas2D.addEventListener(event, e => canvas.dispatchEvent(e))
-);
-*/
-
 
 addEventListener("load", () => {
   const script = document.createElement("script");

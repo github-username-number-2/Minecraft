@@ -1,6 +1,9 @@
 import WorldData from "/js/data/WorldData.js";
 import WorldGenerationData from "/js/data/WorldGenerationData.js";
 
+import generateStandardWorld from "./generateStandardWorld/index.js";
+import generateSuperflat from "./generateSuperflat/index.js";
+
 import convertToChunks from "./convertToChunks.js";
 
 const chunkWidth = WorldData.size.chunks.width,
@@ -8,49 +11,24 @@ const chunkWidth = WorldData.size.chunks.width,
   chunkDepth = WorldData.size.chunks.depth;
 
 export default async function generateWorld(data, progressUpdate) {
-  const {
-    type,
-    seed,
-    size,
-    generateStructures,
-  } = data;
-
-  switch (type) {
+  switch (data.type) {
     case "Normal":
-      return new Promise(resolve => {
-        resolve();
-      });
+      return convertToChunks(
+        generateStandardWorld(data, progressUpdate),
+        chunkWidth,
+        chunkHeight,
+        chunkDepth,
+        data.size,
+        progressUpdate,
+      );
     case "Superflat":
-      return new Promise(resolve => {
-        const {layers} = data;
-        
-        const world = [];
-
-        layers.unshift(WorldGenerationData.bottomBoundingBlock);
-
-        const layerCount = layers.length;
-        layers.forEach((layer, layerIndex) => {
-          let xAxis = [];
-          
-          xAxis.length = chunkWidth * size.width;
-          xAxis = xAxis.fill([]);
-
-          xAxis.forEach((zAxis, index) => {
-            zAxis.length = chunkDepth * size.depth;
-            xAxis[index] = zAxis.fill(layer);
-          });
-
-          world.push(xAxis);
-
-          progressUpdate({
-            progressType: "Creating Layers",
-            progressPercent: (layerIndex / layerCount).toFixed(2),
-          });
-        });
-
-        resolve(
-          convertToChunks(world, chunkWidth, chunkHeight, chunkDepth, size, progressUpdate)
-        );
-      });
-  }
+      return convertToChunks(
+        generateSuperflat(data, progressUpdate),
+        chunkWidth,
+        chunkHeight,
+        chunkDepth,
+        data.size,
+        progressUpdate,
+      );
+  };
 }

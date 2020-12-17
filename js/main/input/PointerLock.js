@@ -1,5 +1,5 @@
 import PointerLockControls from "/js/libraries/PointerLockControls.js";
-
+import ActiveKeys from "./KeyMapper.js";
 import PlayerData from "/js/data/PlayerData.js";
 
 import {savedRotation} from "./MovementHandeler.js";
@@ -14,9 +14,14 @@ scene.add(controls.getObject());
 
 body.addEventListener("click", () => controls.lock());
 
-//stops camera from changing rotation on camera unlock
 controls.addEventListener("unlock", () => {
+  //stops camera from changing rotation on camera unlock
   camera.rotation.x = savedRotation.x;
   camera.rotation.y = savedRotation.y;
   camera.rotation.z = savedRotation.z;
+
+  //stops player from moving on unlock
+  for (const key in ActiveKeys) {
+    ActiveKeys[key] = false;
+  }
 });

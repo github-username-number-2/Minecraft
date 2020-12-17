@@ -103,6 +103,34 @@ export default {
       ...solidMechanics,
     },
 
+    cobblestone: {
+      renderBlock: true,
+
+      location: "cobblestone",
+      blockType: "block",
+      dimensions: [
+        ["side", "side"],
+        ["side", "side"],
+        ["side", "side"],
+      ],
+
+      ...solidMechanics,
+    },
+
+    stoneBricks: {
+      renderBlock: true,
+
+      location: "stoneBricks",
+      blockType: "block",
+      dimensions: [
+        ["side", "side"],
+        ["side", "side"],
+        ["side", "side"],
+      ],
+
+      ...solidMechanics,
+    },
+
     oakWood: {
       renderBlock: true,
 
@@ -153,6 +181,20 @@ export default {
       dimensions: [
         "side",
         "side",
+      ],
+
+      ...solidMechanics,
+    },
+
+    notblockedgames: {
+      renderBlock: true,
+
+      location: "notblockedgames",
+      blockType: "block",
+      dimensions: [
+        ["top", "top"],
+        ["side", "side"],
+        ["side", "side"],
       ],
 
       ...solidMechanics,
